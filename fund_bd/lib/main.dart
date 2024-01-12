@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:fund_bd/home_screen.dart';
+import 'package:fund_bd/sign_in.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+ 
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return  MaterialApp(
+      home: SignIn(),
     );
   }
 }
