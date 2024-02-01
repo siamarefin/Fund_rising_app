@@ -1,8 +1,22 @@
+
+
+
 import 'package:flutter/material.dart';
-import 'package:fund_bd/start_fund_rising.dart';
+import 'package:fund_bd/companyList.dart';
+import 'package:fund_bd/donarProfile.dart';
+import 'package:fund_bd/donationhistory.dart';
+import 'package:fund_bd/event.dart';
+import 'package:fund_bd/feedback.dart';
+import 'package:fund_bd/payment.dart';
+import 'package:fund_bd/paymentmethod.dart';
 
 class HomeScreen extends StatelessWidget {
-   Widget listTile(
+
+  
+
+  @override
+
+  Widget listTile(
       {required IconData icon,
       required String title,
       required Function onTap}) {
@@ -11,7 +25,7 @@ class HomeScreen extends StatelessWidget {
       leading: Icon(
         icon,
         size: 25,
-        color: Color.fromARGB(255, 186, 227, 231),
+        color: Color.fromARGB(255, 250, 166, 250),
       ),
       title: Text(
         title,
@@ -24,9 +38,11 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      // backgroundColor: Color.fromARGB(255, 217, 0, 255),
+        
       drawer:  Drawer(
       child: Container(
+        
         color: Color.fromARGB(255, 109, 122, 109),
         child: ListView(
           children: [
@@ -35,14 +51,14 @@ class HomeScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
+                    
                     CircleAvatar(
-                      backgroundColor: Colors.white54,
+                      backgroundColor: Colors.green,
                       radius: 43,
                       child: CircleAvatar(
                         radius: 40,
-                        backgroundColor: Color.fromARGB(255, 102, 131, 182),
-                        backgroundImage: NetworkImage(
-                            'https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg'),
+                        backgroundColor: Colors.white,
+                        backgroundImage: AssetImage('assets/siam.png'),
                       ),
                     ),
                     SizedBox(
@@ -58,6 +74,7 @@ class HomeScreen extends StatelessWidget {
                           'siamarefin@gmail.com',
                           overflow: TextOverflow.ellipsis,
                         ),
+                        Text('Mobile:01750526761'),
                       ],
                     ),
                   ],
@@ -79,131 +96,155 @@ class HomeScreen extends StatelessWidget {
               icon: Icons.account_box,
               title: 'My Profile',
               onTap: () {
-                
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => DonorProfileScreen(),
+                  ),
+                );
               },
             ),
             listTile(
               icon: Icons.notifications,
-              title: 'Notification',
-              onTap: () {},
+              title: 'Donate',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CompanyListScreen(),
+                  ),
+                );
+              },
             ),
             listTile(
-              icon: Icons.cleaning_services,
-              title: 'Our Service',
+              icon: Icons.payment,
+              title: 'Payment method',
               onTap: () {
-                
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PaymentMethod(onSelectPaymentMethod: (String ) {  },),
+                  ),
+                  
+                );
               },
             ),
             listTile(
               icon: Icons.location_on,
-              title: 'Pickup Points',
-              onTap: () {},
+              title: 'Donation history ',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => DonationHistoryPage(),
+                  ),
+                );
+              },
             ),
             listTile(
               icon: Icons.subscriptions,
-              title: 'Subscription',
-              onTap: () {},
-            ),
-            listTile(
-              icon: Icons.shop_2,
-              title: 'Service Cart',
+              title: 'Feedback',
               onTap: () {
-                
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FeedbackPage(),
+                  ),
+                );
               },
             ),
-            listTile(icon: Icons.message_rounded, title: 'FAQs', onTap: () {}),
-            Container(
-              height: 350,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Contact Support'),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Text('Call us: '),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text('0123456789'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Text('Mail us: '),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('siam@gmail.com'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            
           ],
         ),
       ),
     ),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text('Home',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-        backgroundColor: Colors.amber,
+        title: Text('HOME', style: (TextStyle(color:Colors.white,fontWeight: FontWeight.bold, fontSize: 40,)),),
+        backgroundColor: Color.fromARGB(194, 222, 48, 106 ) ,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Help Us Make a Difference!',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              // First Row
+              Row(
+                children: [
+                  _buildGridItem('assets/ngo1.jpg', 'Hopeful Hearts Foundation'),
+                  SizedBox(width: 16),
+                  _buildGridItem('assets/ngo2.jpg', 'Unity for International'),
+                ],
               ),
-            ),
-            SizedBox(height: 20),
-            Image.asset(
-              'assets/bg.png', // Replace with your image asset
-              height: 150,
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Total Funds Raised:',
-              style: TextStyle(
-                fontSize: 18,
+              SizedBox(height: 16),
+              // Second Row
+              Row(
+                children: [
+                  _buildGridItem('assets/ngo3.jpg', 'Compassionate  Alliance'),
+                  SizedBox(width: 16),
+                  _buildGridItem('assets/ngo4.jpg', 'Giving Network'),
+                ],
               ),
-            ),
-            Text(
-              '\$5000', // Replace with the actual funds raised
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  _buildGridItem('assets/ngo5.jpg', 'Bright Outreach'),
+                  SizedBox(width: 16),
+                  _buildGridItem('assets/ngo6.jpg', 'Empowerment Emporium'),
+                ],
               ),
-            ),
-            SizedBox(height: 20),
+              Row(
+                children: [
+                  _buildGridItem('assets/ngo7.jpg', 'Harmony for Humanity'),
+                  SizedBox(width: 16),
+                  _buildGridItem('assets/ngo8.jpg', 'Serenity Services'),
+                ],
+              ),
+              Row(
+                children: [
+                SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) =>StartFundraisingPage(),
-                  ),
-                );
+                Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EventPage(),
+              ),
+            );
               },
-              child: Text('Start Fundraising'),
+              child: Text('See our  EVENT details',style: TextStyle(color: Color.fromARGB(194, 222, 48, 106),fontSize: 30),),
             ),
-          ],
+                ]
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+  
+  
+
+  Widget _buildGridItem(String imagePath, String name) {
+    return Expanded(
+      child: Column(
+        children: [
+          Image.asset(
+            imagePath,
+            height: 100,
+          ),
+          SizedBox(height: 10),
+
+          Text(
+            name,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 30),
+          
+
+          
+        ],
+        
+      ),
+    );
+  }
 }
+
+
